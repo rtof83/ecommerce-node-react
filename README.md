@@ -11,5 +11,5 @@
 ### Implementações:
 -
 
-### Pendências:
+### Próximos passos:
 -
