@@ -15,7 +15,7 @@ const Home = () => {
     const list = useContext(ListContext);
 
     const getProducts = async () => {
-        api.get('product')
+        await api.get('product')
             .then(({ data }) => setData(data))
             .catch(e => console.log(e));
     }

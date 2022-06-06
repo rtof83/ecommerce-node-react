@@ -77,7 +77,7 @@ export default function ListProd() {
                   <StyledTableCell align="left">{item._id}</StyledTableCell>
 
                   <StyledTableCell align="left" component="th" scope="row">
-                      {item.total}
+                      {item.total.toFixed(2)}
                   </StyledTableCell>
                   <StyledTableCell align="center">{item.customer}</StyledTableCell>
                   <StyledTableCell align="right"><button onClick={() => deleteOrder(item._id)}>Excluir</button></StyledTableCell>

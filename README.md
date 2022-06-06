@@ -31,7 +31,7 @@
 
 ### Implementações FRONT:
 - `Cadastro, alteração e exclusão de Cliente`;
-- `Cadastro e exclusão de Produto`;
+- `Cadastro, alteração e exclusão de Produto`;
 - `Lista Clientes`;
 - `Lista Produtos`;
 - `Lista Pedidos`;
@@ -39,8 +39,9 @@
 - `Login`;
 
 ### Próximos passos:
-- `Atualização de Produtos`;
 - `Filtrar listagens`;
 - `Localizar registros por campo`;
 - `Utilizar localstorage (pedidos) concomitante ao ContextAPI`;
+- `Lista pedidos detalhada`;
+- `Validação dos campos`;
 - `Refatoração`;

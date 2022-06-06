@@ -22,25 +22,25 @@ const App = () => {
     <UserContext.Provider value={[ user, setUser ]}>
       <ListContext.Provider value={[ list, setList ]}>
 
-    <Router>
-      <Header />
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route path='/customer' element={<Customer />} />
-          <Route path='/customer/:id' element={<Customer />} />
-          <Route path='/product' element={<Product />} />
-          <Route path='/product/:id' element={<Product />} />
-          <Route path='/listCust' element={<ListCust />} />
-          <Route path='/listProd' element={<ListProd />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/login/:cart' element={<Login />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/listOrder' element={<ListOrder />} />
-        </Routes>
-      <Footer />
-    </Router>
+        <Router>
+          <Header />
+            <Routes>
+              <Route exact path='/' element={<Home />} />
+              <Route path='/customer' element={<Customer />} />
+              <Route path='/customer/:id' element={<Customer />} />
+              <Route path='/product' element={<Product />} />
+              <Route path='/product/:id' element={<Product />} />
+              <Route path='/listCust' element={<ListCust />} />
+              <Route path='/listProd' element={<ListProd />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/login/:cart' element={<Login />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/listOrder' element={<ListOrder />} />
+            </Routes>
+          <Footer />
+        </Router>
 
-    </ListContext.Provider>
+      </ListContext.Provider>
     </UserContext.Provider>
   )
 };

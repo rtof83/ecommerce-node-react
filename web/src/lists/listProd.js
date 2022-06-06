@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import api from '../api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -16,27 +16,8 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import Foods from '../assets/foods.png';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-export default function ListProd() {
+const ListProd = () => {
+    const navigate = useNavigate();
     const [ data, setData ] = useState([]);
 
     const getData = async () => {
@@ -89,8 +70,8 @@ export default function ListProd() {
                       {item.name}
                   </StyledTableCell>
                   <StyledTableCell align="center">{item.quant}</StyledTableCell>
-                  <StyledTableCell align="center">{item.price}</StyledTableCell>
-                  <StyledTableCell align="right"><button>Alterar</button></StyledTableCell>
+                  <StyledTableCell align="center">{item.price.toFixed(2)}</StyledTableCell>
+                  <StyledTableCell align="right"><button onClick={() => navigate(`/product/${item._id}`)}>Alterar</button></StyledTableCell>
                   <StyledTableCell align="right"><button onClick={() => deleteProduct(item._id, item.name)}>Excluir</button></StyledTableCell>
                   </StyledTableRow>
               ))}
@@ -114,3 +95,25 @@ export default function ListProd() {
 
   );
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+export default ListProd;

@@ -1,5 +1,5 @@
-import { React, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { React, useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import Foods from '../assets/foods.png';
 import Grid from '@mui/material/Grid';
@@ -13,10 +13,10 @@ const Product = () => {
                                            desc: '',
                                            quant: '',
                                            price: '',
-                                           image: ''
-                                        });
+                                           image: '' });
 
     const navigate = useNavigate();
+    const { id } = useParams();
 
     const [ showImage, setShowImage ] = useState(Foods);
     const checkImage = (img) => {
@@ -37,14 +37,39 @@ const Product = () => {
       if (!values.name || !values.quant || !values.price) {
         alert('Atenção! Os campos obrigatórios devem ser preenchidos.')
       } else {
-        await api.post('/product', { name: values.name,
-                                     desc: values.desc,
-                                     quant: values.quant,
-                                     price: values.price,
-                                     image: values.image })
+        const product = { name: values.name,
+                          desc: values.desc,
+                          quant: values.quant,
+                          price: values.price,
+                          image: values.image };
+
+        if (id) {
+          await api.patch(`/product/${id}`, product)
             .then(navigate('/listProd'));
+        } else {
+          await api.post('/customer', product)
+            .then(navigate('/listProd'));
+        } 
       }
     }
+
+    const getProduct = async () => {
+      if (id) {
+        await api.get(`product/${id}`)
+          .then(({ data }) => {
+            setValues({ name: data.name,
+                        desc: data.desc,
+                        quant: data.quant,
+                        price: data.price,
+                        image: data.image });
+          })
+          .catch(e => console.log(e));
+      }
+    }
+
+    useEffect(() => {
+      getProduct();
+    }, []);
     
       return (
         <div className="gridCustomer">
@@ -58,6 +83,7 @@ const Product = () => {
                 alignItems="stretch"
                 className="gridCustomer">
 
+              { id && <TextField id="outlined-basic" label="Id" variant="outlined" value={id} disabled /> }
               <TextField id="outlined-basic" label="Nome" variant="outlined" value={values.name} onChange={e => setValues({...values, name: e.target.value})} />
               <TextField id="outlined-basic" label="Descrição" variant="outlined" value={values.desc} onChange={e => setValues({...values, desc: e.target.value})} />
               <TextField id="outlined-basic" label="Quantidade" variant="outlined" value={values.quant} onChange={e => setValues({...values, quant: e.target.value})} />

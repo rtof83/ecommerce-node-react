@@ -11,14 +11,17 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Foods from '../assets/foods.png';
 import ListContext from '../contexts/ListContext';
 
-export default function CardFood({ id, image, name, desc, price, quant }) {
-// export default function CardFood(props) {
+const CardFood = ({ id, image, name, desc, price, quant }) => {
   const [ list, setList ] = useContext(ListContext);
   const navigate = useNavigate();
 
   const order = (add) => {
-    setList(prevList => ([ ...prevList, add ]));
-    navigate('/cart');
+    if (list.filter(item => item.id === add.id).length > 0) {
+      alert('Produto já foi adicionado ao carrinho.');
+    } else {
+      setList(prevList => ([ ...prevList, add ]));
+      navigate('/cart');
+    }
   }
 
   return (
@@ -50,9 +53,11 @@ export default function CardFood({ id, image, name, desc, price, quant }) {
           <AttachMoneyIcon />
         </IconButton>
         <Typography variant="body2" color="text.secondary">
-          {price}
+          {price.toFixed(2)}
         </Typography>
       </CardActions>
     </Card>
   );
 }
+
+export default CardFood;

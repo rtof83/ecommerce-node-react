@@ -17,8 +17,7 @@ const Customer = () => {
     const [values, setValues] = useState({ name: '',
                                            address: '',
                                            email: '',
-                                           pass: ''
-                                        });
+                                           pass: '' });
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -31,13 +30,14 @@ const Customer = () => {
                            address: values.address,
                            email: values.email,
                            password: values.pass,
-                           access: 'user' }
+                           access: 'user' };
+                           
         if (id) {
           await api.patch(`/customer/${id}`, customer)
             .then(navigate('/listCust'));
         } else {
           await api.post('/customer', customer)
-              .then(navigate('/listCust'));
+            .then(navigate('/listCust'));
         }
       }
     }
