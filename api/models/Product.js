@@ -6,6 +6,6 @@ const Product = mongoose.model('Product', {
   quant: Number,
   price: Number,
   image: String
-})
+});
 
-module.exports = Product
+module.exports = Product;

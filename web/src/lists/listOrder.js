@@ -1,6 +1,6 @@
-import { React, useEffect, useState } from "react";
-import api from "../api";
-import { Link } from "react-router-dom";
+import { React, useEffect, useState } from 'react';
+import api from '../api';
+import { Link } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -13,8 +13,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
-import Foods from '../assets/foods.png';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -101,9 +99,5 @@ export default function ListProd() {
           </Link>
         </Grid>
     </div>
-
-
   );
 }
-
-

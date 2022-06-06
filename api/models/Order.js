@@ -10,6 +10,6 @@ const Order = mongoose.model('Order', {
   total: Number,
   pay: String,
   date: Date
-})
+});
 
-module.exports = Order
+module.exports = Order;

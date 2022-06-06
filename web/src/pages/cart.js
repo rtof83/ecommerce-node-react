@@ -7,8 +7,6 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,7 +21,6 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
-
 import Foods from '../assets/foods.png';
 import api from '../api';
 
@@ -32,7 +29,6 @@ export default function Cart() {
   const user = useContext(UserContext);
   const navigate = useNavigate();
 
-  // const [ quant, setQuant ] = useState(0);
   const [ pay, setPay ] = useState('');
   const [ total, setTotal ] = useState('');
 
@@ -94,11 +90,6 @@ export default function Cart() {
   const removeItem = (id) => {
     setList(list.filter(item => item.id !== id));
   }
-
-  // useEffect(() => {
-  //     setList(prevlist => [ ...prevlist, list ])
-
-  // }, [list])
 
   return (
     <div className='cartContainer'>
@@ -173,10 +164,6 @@ export default function Cart() {
                         {item.name}
                     </StyledTableCell>
 
-                    {/* <StyledTableCell align="center">
-                      <input type="number" min={1} max={item.quantMax} value={quant} onChange={e => setQuant(e.target.value)} />
-                    </StyledTableCell> */}
-
                     <StyledTableCell align="center">
                       <div className='quantCart'>
                         <button onClick={() => counter(item.id, item.quantMax, 'decrease')}>-</button>
@@ -187,8 +174,6 @@ export default function Cart() {
                       
                     <StyledTableCell align="center">{(item.quant*item.price).toFixed(2)}</StyledTableCell>
                     <StyledTableCell align="right"><button onClick={() => removeItem(item.id)}>Excluir</button></StyledTableCell>
-                    
-                    
                     
                     </StyledTableRow>
                 ))}

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import Home from './pages/home';
 import Customer from './pages/customer';
 import Product from './pages/product';
@@ -17,8 +17,6 @@ import Cart from './pages/cart';
 const App = () => {
   const [ user, setUser ] = useState([]);
   const [ list, setList ] = useState([]);
-  // const User = createContext([]);
-  // const List = createContext([]);
 
   return (
     <UserContext.Provider value={[ user, setUser ]}>

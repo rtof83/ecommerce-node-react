@@ -1,15 +1,13 @@
-import { React, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { React, useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
@@ -89,7 +87,6 @@ const Customer = () => {
             <TextField required id="outlined-basic" label="Nome" variant="outlined" value={values.name} onChange={e => setValues({...values, name: e.target.value})} />
             <TextField id="outlined-basic" label="Endereço" variant="outlined" value={values.address} onChange={e => setValues({...values, address: e.target.value})} />
             <TextField required id="outlined-basic" label="E-mail" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} />
-            {/* <TextField id="outlined-basic" label="Senha" variant="outlined" type="password" value={values.pass} onChange={e => setValues({...values, pass: e.target.value})} /> */}
         
             <FormControl required variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">Senha</InputLabel>

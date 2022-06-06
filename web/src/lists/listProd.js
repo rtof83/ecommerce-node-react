@@ -1,6 +1,6 @@
-import { React, useEffect, useState } from "react";
-import api from "../api";
-import { Link } from "react-router-dom";
+import { React, useEffect, useState } from 'react';
+import api from '../api';
+import { Link } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -114,5 +114,3 @@ export default function ListProd() {
 
   );
 }
-
-

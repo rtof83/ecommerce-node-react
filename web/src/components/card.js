@@ -19,10 +19,6 @@ export default function CardFood({ id, image, name, desc, price, quant }) {
   const order = (add) => {
     setList(prevList => ([ ...prevList, add ]));
     navigate('/cart');
-    // let listTemp = list;
-    // listTemp.push(name);
-    // console.log(list);
-    // console.log(teste);
   }
 
   return (

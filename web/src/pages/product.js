@@ -1,19 +1,10 @@
-import { React, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { React, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Foods from '../assets/foods.png';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Avatar from '@mui/material/Avatar';
 import api from '../api';
 
@@ -55,21 +46,6 @@ const Product = () => {
       }
     }
     
-      const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-      };
-    
-      const handleClickShowPassword = () => {
-        setValues({
-          ...values,
-          showPassword: !values.showPassword,
-        });
-      };
-    
-      const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-      };
-    
       return (
         <div className="gridCustomer">
 
@@ -87,7 +63,6 @@ const Product = () => {
               <TextField id="outlined-basic" label="Quantidade" variant="outlined" value={values.quant} onChange={e => setValues({...values, quant: e.target.value})} />
               <TextField id="outlined-basic" label="Preço" variant="outlined" value={values.price} onChange={e => setValues({...values, price: e.target.value})} />
               <TextField id="outlined-basic" label="Imagem (link)" variant="outlined" value={values.image} onChange={e => checkImage(e.target.value)} />
-              {/* <TextField id="outlined-basic" label="Imagem (link)" variant="outlined" value={values.image} onChange={e => setValues({...values, image: e.target.value})} /> */}
           
         <Avatar className="avatarFood"
           alt="food"

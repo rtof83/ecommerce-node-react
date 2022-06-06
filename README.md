@@ -8,6 +8,9 @@
 ## Instalação
 - `/web e /api -> npm i`;
 
+## Inicialização
+- `/web e /api -> npm start`;
+
 ## Configurações
 - [API - conexão com a base de dados](https://github.com/rtof83/ecommerce/blob/main/api/database/conn.js);
 - [FRONT - conexão com a API](https://github.com/rtof83/ecommerce/blob/main/web/src/api.js);
@@ -39,4 +42,5 @@
 - `Atualização de Produtos`;
 - `Filtrar listagens`;
 - `Localizar registros por campo`;
+- `Utilizar localstorage (pedidos) concomitante ao ContextAPI`;
 - `Refatoração`;

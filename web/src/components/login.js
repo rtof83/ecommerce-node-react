@@ -1,6 +1,6 @@
-import { React, useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import api from "../api";
+import { React, useState, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '../api';
 import UserContext from '../contexts/UserContext';
 
 import Grid from '@mui/material/Grid';
@@ -27,16 +27,6 @@ const Login = () => {
           })
           .catch(e => console.log(e));
     }
-    
-      // useEffect(() => {    
-      //   getData();
-      // }, [])
-
-
-
-      // useEffect(() => {
-      //   data.length > 0 ? console.log('ok') : console.log('not ok');
-      // }, [data])
     
       return (
         <>

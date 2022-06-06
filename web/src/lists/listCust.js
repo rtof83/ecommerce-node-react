@@ -1,6 +1,6 @@
-import { React, useEffect, useState } from "react";
-import api from "../api";
-import { Link, useNavigate } from "react-router-dom";
+import { React, useEffect, useState } from 'react';
+import api from '../api';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -36,7 +36,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ListProd() {
     const [ data, setData ] = useState([]);
-    // const [ list, setList ] = useState([]);
     const navigate = useNavigate();
 
     const getData = async () => {
@@ -103,5 +102,3 @@ export default function ListProd() {
 
   );
 }
-
-

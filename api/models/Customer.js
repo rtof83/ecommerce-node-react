@@ -6,6 +6,6 @@ const Customer = mongoose.model('Customer', {
   email: String,
   password: String,
   access: String
-})
+});
 
-module.exports = Customer
+module.exports = Customer;
