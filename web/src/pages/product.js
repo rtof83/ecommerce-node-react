@@ -47,7 +47,7 @@ const Product = () => {
           await api.patch(`/product/${id}`, product)
             .then(navigate('/listProd'));
         } else {
-          await api.post('/customer', product)
+          await api.post('/product', product)
             .then(navigate('/listProd'));
         } 
       }

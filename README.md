@@ -5,6 +5,30 @@
 - `react (FRONT)`;
 - `base de dados MongoDB`;
 
+## Estrutura da base de dados:
+- `Cliente:`
+    - `name: String`
+    - `address: String`
+    - `email: String`
+    - `password: String`
+    - `access: String`
+- `Produto:`
+    - `name: String`
+    - `desc: String`
+    - `quant: Number`
+    - `price: Number`
+    - `image: String`
+- `Pedido:`
+    - `customer: String`
+    - `list: [{`
+        `product: String`
+        `quant: Number`
+        `price: Number`
+    `}]`
+    - `total: Number`
+    - `pay: String`
+    - `date: Date`
+
 ## Instalação
 - `/web e /api -> npm i`;
 

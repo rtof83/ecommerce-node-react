@@ -24,7 +24,7 @@ import FormControl from '@mui/material/FormControl';
 import Foods from '../assets/foods.png';
 import api from '../api';
 
-export default function Cart() {
+const Cart = () => {
   const [ list, setList ] = useContext(ListContext);
   const user = useContext(UserContext);
   const navigate = useNavigate();
@@ -232,3 +232,5 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+
+export default Cart;

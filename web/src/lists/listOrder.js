@@ -14,27 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-export default function ListProd() {
+const ListOrder = () => {
     const [ data, setData ] = useState([]);
 
     const getData = async () => {
@@ -67,6 +47,7 @@ export default function ListProd() {
                   <StyledTableCell align="left">Pedido</StyledTableCell>
                   <StyledTableCell align="left">Total</StyledTableCell>
                   <StyledTableCell align="center">Cliente</StyledTableCell>
+                  <StyledTableCell align="center">Pagamento</StyledTableCell>
                   <StyledTableCell align="right" />
               </TableRow>
               </TableHead>
@@ -80,6 +61,7 @@ export default function ListProd() {
                       {item.total.toFixed(2)}
                   </StyledTableCell>
                   <StyledTableCell align="center">{item.customer}</StyledTableCell>
+                  <StyledTableCell align="center">{item.pay}</StyledTableCell>
                   <StyledTableCell align="right"><button onClick={() => deleteOrder(item._id)}>Excluir</button></StyledTableCell>
                   </StyledTableRow>
               ))}
@@ -101,3 +83,25 @@ export default function ListProd() {
     </div>
   );
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+export default ListOrder;
