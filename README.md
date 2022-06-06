@@ -27,8 +27,8 @@
 - `após inserção de pedidos, a quantidade de produtos é atualizada`;
 
 ### Implementações FRONT:
-- `Cadastro, alteração e exlcusão de Cliente`;
-- `Cadastro e exlcusão de Produto`;
+- `Cadastro, alteração e exclusão de Cliente`;
+- `Cadastro e exclusão de Produto`;
 - `Lista Clientes`;
 - `Lista Produtos`;
 - `Lista Pedidos`;
