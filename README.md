@@ -42,14 +42,14 @@
 ### a aplicação pode ser acessada através do link:
 - http://enafood.s3-website.us-east-2.amazonaws.com
 - `FRONT armazenado em instância Amazon S3`;
-- `API instanciado em EC2 AWS`;
+- `API instanciado em EC2 AWS (http://44.197.170.12:3001/)`;
 
 ### Implementações API:
 - `Utilização de models mongoose para Clientes, Produtos e Pedidos`;
 - `Rotas de acesso (para os métodos GET, POST, DELETE E PATCH):`;
-    - `{baseURL}/customer -> retorna, atualiza, exlcui clientes`;
-    - `{baseURL}/product -> retorna, atualiza, exlcui produtos`;
-    - `{baseURL}/order -> retorna, atualiza, exlcui pedidos`;
+    - `{baseURL}/customer -> retorna, atualiza, exclui clientes`;
+    - `{baseURL}/product -> retorna, atualiza, exclui produtos`;
+    - `{baseURL}/order -> retorna, atualiza, exclui pedidos`;
     - `{baseURL}/{rota}/:id -> retorna registro por ID`;
 - `após inserção de pedidos, a quantidade de produtos é atualizada`;
 
