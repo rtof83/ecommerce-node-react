@@ -20,11 +20,11 @@
     - `image: String`
 - `Pedido (Order):`
     - `customer: String`
-    - `list: [{`
-        `product: String`
-        `quant: Number`
-        `price: Number`
-    `}]`
+    - `list: [{
+            product: String,
+            quant: Number,
+            price: Number
+        }]`
     - `total: Number`
     - `pay: String`
     - `date: Date`
