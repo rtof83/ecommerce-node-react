@@ -93,7 +93,8 @@ const Cart = () => {
 
   return (
     <div className='cartContainer'>
-
+    { list.length === 0 ? <h3>Carrinho vazio</h3> : <>
+    
       <h3>Carrinho</h3>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -195,11 +196,10 @@ const Cart = () => {
                 alignItems="center"
                 className="gridButton">
 
-            {/* <Link to={'/'}> */}
               <Button onClick={() => order()} variant="contained">Confirmar Pedido</Button>
-            {/* </Link> */}
           </Grid>
       </Box>
+    </>}
     </div>
 
   );

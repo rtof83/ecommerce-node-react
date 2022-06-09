@@ -14,15 +14,22 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
+import CircularProgress from '@mui/material/CircularProgress';
 import Foods from '../assets/foods.png';
 
 const ListProd = () => {
     const navigate = useNavigate();
     const [ data, setData ] = useState([]);
+    const [ loading, setLoading ] = useState(false);
 
     const getData = async () => {
+        setLoading(true);
+
         await api.get('product')
-          .then(({ data }) => setData(data))
+          .then(({ data }) => {
+            setData(data);
+            setLoading(false);
+          })
           .catch(e => console.log(e));
       }
     
@@ -38,11 +45,20 @@ const ListProd = () => {
         }
       }
 
+      // const getValue = (value) => {
+      //   value >= 0 ? (value).toLocaleString('pt-BR') : 
+      //           <Skeleton variant="text" width={182} height={60} />
+      // }
+
   return (
       <div className="tableProduct">
 
+        {/* { loading && <h3><CircularProgress /></h3> } */}
+        {/* { data.length === 0 ? <h3>Nenhum registro encontrado</h3> : <> */}
+
+        { loading ? <h3><CircularProgress /></h3> : <>
+
         <h3>Lista de Produtos</h3>
-        
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
@@ -90,9 +106,9 @@ const ListProd = () => {
             <Button variant="contained">Voltar</Button>
           </Link>
         </Grid>
+
+        : </> }
     </div>
-
-
   );
 }
 

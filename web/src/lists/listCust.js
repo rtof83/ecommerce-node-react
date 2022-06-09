@@ -13,14 +13,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ListCust = () => {
     const [ data, setData ] = useState([]);
     const navigate = useNavigate();
+    const [ loading, setLoading ] = useState(false);
 
     const getData = async () => {
+      setLoading(true);
+
         await api.get('customer')
-          .then(({ data }) => setData(data))
+          .then(({ data }) => {
+            setData(data);
+            setLoading(false);
+          })
           .catch(e => console.log(e));
       }
     
@@ -39,8 +46,10 @@ const ListCust = () => {
   return (
       <div className="tableCustomer">
 
-        <h3>Lista de Clientes</h3>
+        {/* { data.length === 0 ? <h3>Nenhum registro encontrado</h3> : <> */}
+        { loading ? <h3><CircularProgress /></h3> : <>
 
+        <h3>Lista de Clientes</h3>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
@@ -77,9 +86,9 @@ const ListCust = () => {
             <Button variant="contained">Voltar</Button>
           </Link>
         </Grid>
+
+        </> }
     </div>
-
-
   );
 }
 

@@ -13,13 +13,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ListOrder = () => {
     const [ data, setData ] = useState([]);
+    const [ loading, setLoading ] = useState(false);
 
     const getData = async () => {
+      setLoading(true);
+
         await api.get('order')
-          .then(({ data }) => setData(data))
+          .then(({ data }) => {
+            setData(data);
+            setLoading(false);
+          })
           .catch(e => console.log(e));
       }
     
@@ -38,8 +45,10 @@ const ListOrder = () => {
   return (
       <div className="tableProduct">
 
+        {/* { data.length === 0 ? <h3>Nenhum registro encontrado</h3> : <> */}
+        { loading ? <h3><CircularProgress /></h3> : <>
+
         <h3>Lista de Pedidos</h3>
-        
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
@@ -80,6 +89,8 @@ const ListOrder = () => {
             <Button variant="contained">Voltar</Button>
           </Link>
         </Grid>
+
+        : </> }
     </div>
   );
 }

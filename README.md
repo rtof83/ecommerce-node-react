@@ -6,19 +6,19 @@
 - `base de dados MongoDB`;
 
 ## Estrutura da base de dados:
-- `Cliente:`
+- `Cliente (Customer):`
     - `name: String`
     - `address: String`
     - `email: String`
     - `password: String`
     - `access: String`
-- `Produto:`
+- `Produto (Product):`
     - `name: String`
     - `desc: String`
     - `quant: Number`
     - `price: Number`
     - `image: String`
-- `Pedido:`
+- `Pedido (Order):`
     - `customer: String`
     - `list: [{`
         `product: String`
