@@ -1,9 +1,9 @@
 # Projeto EnaFood
 
 ## Foi utilizado para contrução:
-- `node.js (API)`;
-- `react (FRONT)`;
-- `base de dados MongoDB`;
+- API -> Node.js;
+- FRONT -> React;
+- DB -> MongoDB;
 
 ## Estrutura da base de dados:
 - `Cliente (Customer):`
@@ -15,7 +15,7 @@
 - `Produto (Product):`
     - `name: String`
     - `desc: String`
-    - `quant: Number`
+    - `quantity: Number`
     - `price: Number`
     - `image: String`
 - `Pedido (Order):`
@@ -40,9 +40,9 @@
 - [FRONT - conexão com a API](https://github.com/rtof83/ecommerce/blob/main/web/src/api.js);
 
 ### a aplicação pode ser acessada através do link:
-- http://enafood.s3-website.us-east-2.amazonaws.com
+- http://ecomm-mongodb-node.s3-website-us-east-1.amazonaws.com
 - `FRONT armazenado em instância Amazon S3`;
-- `API instanciado em EC2 AWS (http://44.197.170.12:3001/)`;
+- `API instanciado em EC2 AWS (http://34.235.154.60:3003)`;
 
 ### Implementações API:
 - `Utilização de models mongoose para Clientes, Produtos e Pedidos`;
