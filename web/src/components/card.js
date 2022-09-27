@@ -11,12 +11,12 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Foods from '../assets/foods.png';
 import ListContext from '../contexts/ListContext';
 
-const CardFood = ({ id, image, name, desc, price, quant }) => {
+const CardFood = ({ sku, image, name, desc, price, quantity }) => {
   const [ list, setList ] = useContext(ListContext);
   const navigate = useNavigate();
 
   const order = (add) => {
-    if (list.filter(item => item.id === add.id).length > 0) {
+    if (list.filter(item => item.sku === add.sku).length > 0) {
       alert('Produto já foi adicionado ao carrinho.');
     } else {
       setList(prevList => ([ ...prevList, add ]));
@@ -26,11 +26,11 @@ const CardFood = ({ id, image, name, desc, price, quant }) => {
 
   return (
     <Card className='cardList'
-          onClick={() => order({ id: id,
+          onClick={() => order({ sku: sku,
                                  image: image,
                                  name: name,
-                                 quant: 1,
-                                 quantMax: quant,
+                                 quantity: 1,
+                                 quantMax: quantity,
                                  price: price })} sx={{ maxWidth: 265, height: 345 }}>
       <CardHeader
         title={name}
@@ -58,6 +58,6 @@ const CardFood = ({ id, image, name, desc, price, quant }) => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default CardFood;

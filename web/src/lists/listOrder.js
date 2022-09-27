@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../api';
 import { Link } from 'react-router-dom';
 
@@ -22,25 +22,27 @@ const ListOrder = () => {
     const getData = async () => {
       setLoading(true);
 
-        await api.get('order')
-          .then(({ data }) => {
-            setData(data);
-            setLoading(false);
-          })
+      await api.get('orders')
+        .then(({ data }) => {
+          setData(data);
+          setLoading(false);
+        })
+        .catch(e => console.log(e));
+
+        setLoading(false);
+    };
+    
+    useEffect(() => {    
+      getData();
+    }, []);
+
+    const deleteOrder = async (id) => {
+      if (window.confirm(`Excluir pedido ${id}?`)) {
+        await api.delete(`orders/${id}`)
+          .then(() => getData())
           .catch(e => console.log(e));
       }
-    
-      useEffect(() => {    
-        getData();
-      }, []);
-
-      const deleteOrder = async (id) => {
-        if (window.confirm(`Excluir pedido ${id}?`)) {
-          await api.delete(`order/${id}`)
-            .then(getData())
-            .catch(e => console.log(e));
-        }
-      }
+    };
 
   return (
       <div className="tableProduct">
@@ -53,25 +55,31 @@ const ListOrder = () => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
               <TableRow>
-                  <StyledTableCell align="left">Pedido</StyledTableCell>
-                  <StyledTableCell align="left">Total</StyledTableCell>
-                  <StyledTableCell align="center">Cliente</StyledTableCell>
-                  <StyledTableCell align="center">Pagamento</StyledTableCell>
-                  <StyledTableCell align="right" />
+                  <StyledTableCell align="center">Pedido</StyledTableCell>
+                  <StyledTableCell align="center">Total</StyledTableCell>
+                  <StyledTableCell align="left">Cliente</StyledTableCell>
+                  <StyledTableCell align="center">Data</StyledTableCell>
+                  <StyledTableCell align="center">Itens</StyledTableCell>
+                  <StyledTableCell align="center" />
               </TableRow>
               </TableHead>
               <TableBody>
               {data.map((item) => (
                   <StyledTableRow key={item._id}>
 
-                  <StyledTableCell align="left">{item._id}</StyledTableCell>
+                  <StyledTableCell align="center">{item._id}</StyledTableCell>
 
-                  <StyledTableCell align="left" component="th" scope="row">
+                  <StyledTableCell align="center" component="th" scope="row">
                       {item.total.toFixed(2)}
                   </StyledTableCell>
-                  <StyledTableCell align="center">{item.customer}</StyledTableCell>
-                  <StyledTableCell align="center">{item.pay}</StyledTableCell>
-                  <StyledTableCell align="right"><button onClick={() => deleteOrder(item._id)}>Excluir</button></StyledTableCell>
+                  <StyledTableCell align="left">{item.customer_name}</StyledTableCell>
+                  <StyledTableCell align="center">{new Date(item.date).toLocaleDateString('pt-BR')}</StyledTableCell>
+
+                  <StyledTableCell align="center">{item.list.map(i =>
+                      <div id={i._id}>{`${i.quantity} x ${i.product}`}</div>)}
+                  </StyledTableCell>
+                  
+                  <StyledTableCell align="center"><button onClick={() => deleteOrder(item.id)}>Excluir</button></StyledTableCell>
                   </StyledTableRow>
               ))}
               </TableBody>
@@ -90,10 +98,10 @@ const ListOrder = () => {
           </Link>
         </Grid>
 
-        : </> }
+        </> }
     </div>
   );
-}
+};
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

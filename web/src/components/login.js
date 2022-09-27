@@ -1,4 +1,4 @@
-import { React, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 import UserContext from '../contexts/UserContext';
@@ -9,13 +9,14 @@ import TextField from '@mui/material/TextField';
 
 const Login = () => {
 
-    const [ values, setValues ] = useState({ email: '', pass: '' });
-    const [ user, setUser ] = useContext(UserContext);
+    const [ values, setValues ] = useState({ email: '', password: '' });
+    const [ , setUser ] = useContext(UserContext);
+
     const { cart } = useParams();
     const navigate = useNavigate();
 
     const getUser = async () => {
-        await api.post('customer/getUser', { email: values.email, password: values.pass })
+        await api.post('customers/getUser', { email: values.email, password: values.password })
           .then(({ data }) => {
             if (data.length > 0) {
               setUser(data[0]);
@@ -42,7 +43,7 @@ const Login = () => {
               className="gridCustomer">
 
             <TextField id="outlined-basic" label="Email" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} />
-            <TextField id="outlined-basic" label="Senha" variant="outlined" type="password" value={values.pass} onChange={e => setValues({...values, pass: e.target.value})} />
+            <TextField id="outlined-basic" label="Senha" variant="outlined" type="password" value={values.password} onChange={e => setValues({...values, password: e.target.value})} />
         
         </Grid>
 

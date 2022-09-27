@@ -24,12 +24,12 @@ const App = () => {
 
         <Router>
           <Header />
-            <Routes>
+             <Routes>
               <Route exact path='/' element={<Home />} />
               <Route path='/customer' element={<Customer />} />
               <Route path='/customer/:id' element={<Customer />} />
               <Route path='/product' element={<Product />} />
-              <Route path='/product/:id' element={<Product />} />
+              <Route path='/product/:sku' element={<Product />} />
               <Route path='/listCust' element={<ListCust />} />
               <Route path='/listProd' element={<ListProd />} />
               <Route path='/login' element={<Login />} />

@@ -1,5 +1,8 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import checkCPF from '../components/cpf';
+import InputMask from 'react-input-mask';
+
 import api from '../api';
 
 import Grid from '@mui/material/Grid';
@@ -14,33 +17,62 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Customer = () => {
-    const [values, setValues] = useState({ name: '',
-                                           address: '',
-                                           email: '',
-                                           pass: '' });
+    const [ values, setValues ] = useState({ name: '',
+                                             address: '',
+                                             email: '',
+                                             cpf: '',
+                                             phone: '',
+                                             birth: '',
+                                             password: '',
+                                             showPassword: '' });
 
     const navigate = useNavigate();
     const { id } = useParams();
 
     const insertCustomer = async () => {
-      if (!values.name || !values.address || !values.pass) {
+      const cpf = values.cpf.replace(/[^\w\s]/gi, '');
+      if (!checkCPF(cpf)) {
+        return alert('CPF inválido!');
+      }
+
+      if (!values.name || !values.address || !values.cpf) {
         alert('Atenção! Os campos obrigatórios devem ser preenchidos.')
       } else {
-        const customer = { name: values.name,
-                           address: values.address,
-                           email: values.email,
-                           password: values.pass,
-                           access: 'user' };
-                           
-        if (id) {
-          await api.patch(`/customer/${id}`, customer)
-            .then(navigate('/listCust'));
+        let checkEmail = 0;
+
+        await api.post('customers/checkEmail', { email: values.email })
+        .then(({ data }) => {
+              checkEmail = data[0].id
+            })
+        .catch(e => console.log(e));
+
+        if (checkEmail !== 0 && !id) {
+          alert('Email existente na base de dados');
         } else {
-          await api.post('/customer', customer)
-            .then(navigate('/listCust'));
-        }
-      }
-    }
+          const customer = { name: values.name,
+                             address: values.address,
+                             email: values.email,
+                             cpf: cpf,
+                             phone: values.phone,
+                             birth: values.birth,
+                             password: (values.password) };
+
+          if (id) { 
+            if (checkEmail !== 0 && checkEmail !== parseInt(id)) {
+             alert('Email cadastrado em outro registro');
+            } else {
+              await api.patch(`customers/${id}`, customer)
+                .then(() => navigate('/listCust'))
+                .catch(e => console.log(e));
+            }
+          } else {
+            await api.post('customers', customer)
+              .then(() => navigate('/listCust'))
+              .catch(e => console.log(e));
+          };
+        };
+      };
+    };
     
       const handleClickShowPassword = () => {
         setValues({
@@ -55,16 +87,19 @@ const Customer = () => {
 
       const getCustomer = async () => {
         if (id) {
-          await api.get(`customer/${id}`)
+          await api.get(`customers/${id}`)
             .then(({ data }) => {
               setValues({ name: data.name,
                           address: data.address,
                           email: data.email,
-                          pass: data.password });
+                          cpf: data.cpf,
+                          phone: data.phone,
+                          birth: new Date(data.birth).toISOString().split('T')[0],
+                          password: data.password });
             })
             .catch(e => console.log(e));
-        }
-      }
+        };
+      };
 
       useEffect(() => {
         getCustomer();
@@ -83,18 +118,28 @@ const Customer = () => {
               alignItems="stretch"
               className="gridCustomer">
 
-            { id && <TextField id="outlined-basic" label="Id" variant="outlined" value={id} disabled /> }
-            <TextField required id="outlined-basic" label="Nome" variant="outlined" value={values.name} onChange={e => setValues({...values, name: e.target.value})} />
-            <TextField id="outlined-basic" label="Endereço" variant="outlined" value={values.address} onChange={e => setValues({...values, address: e.target.value})} />
-            <TextField required id="outlined-basic" label="E-mail" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} />
-        
+            { id && <TextField id="txtId" label="Id" variant="outlined" value={id} disabled /> }
+            <TextField required id="txtName" label="Nome" variant="outlined" value={values.name} onChange={e => setValues({...values, name: e.target.value})} />
+            <TextField id="txtAddress" label="Endereço" variant="outlined" value={values.address} onChange={e => setValues({...values, address: e.target.value})} />
+            <TextField required id="txtEmail" label="E-mail" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} />            
+
+            <InputMask value={values.cpf} onChange={e => setValues({...values, cpf: e.target.value})} mask="999.999.999-99" maskChar=" ">
+              {() => <TextField required id="txtCPF" label="CPF" variant="outlined" />}
+            </InputMask>
+
+            <InputMask value={values.phone} onChange={e => setValues({...values, phone: e.target.value})} mask="(99) 99999-9999" maskChar=" ">
+              {() => <TextField required id="txtPhone" label="Telefone" variant="outlined" />}
+            </InputMask>
+
+            <TextField type="date" required id="txtBirth" label="Nascimento" variant="outlined" value={values.birth} onChange={e => setValues({...values, birth: e.target.value})} />
+
             <FormControl required variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">Senha</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
+                id="txtPassword"
                 type={values.showPassword ? 'text' : 'password'}
-                value={values.pass}
-                onChange={e => setValues({...values, pass: e.target.value})}
+                value={values.password}
+                onChange={e => setValues({...values, password: e.target.value})}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

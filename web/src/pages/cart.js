@@ -29,7 +29,7 @@ const Cart = () => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
 
-  const [ pay, setPay ] = useState('');
+  const [ payment, setPayment ] = useState('');
   const [ total, setTotal ] = useState('');
 
   const order = async () => {
@@ -38,58 +38,54 @@ const Cart = () => {
         navigate('/login/cart');
       }
     } else {
-      if (pay === '') {
+      if (payment === '') {
         alert('Atenção! Informe a forma de pagamento.');
       } else {
-        const listPost = list.map(item => ({ product: item.id,
-                                            quant: item.quant,
-                                            price: item.price }));
+        const itemsPost = list.map(item => ({ product: item.sku,
+                                              quantity: item.quantity }));
 
-        const todayDate = new Date().toISOString().slice(0, 10);
         const orderPost = { customer: user[0]._id,
-                            list: listPost,
-                            total: total,
-                            pay: pay,
-                            date: todayDate };
+                            payment: payment,
+                            list: itemsPost };
 
-        api.post('/order', orderPost)
+        api.post('/orders', orderPost)
+          .then(() => navigate('/listOrder'))
           .then(setList([]))
-          .then(navigate('/listOrder'))
           .catch(e => console.log(e));
-      }
-    }
-  }
+      };
+    };
+  };
 
-  const counter = (id, max, func) => {
-    const index = list.findIndex(element => element.id === id);
-    let quant = list[index].quant;
+  const counter = (sku, max, func) => {
+    const index = list.findIndex(element => element.sku === sku);
+    let quantity = list[index].quantity;
 
-    if (func === 'increase' && quant < max) quant++;
-    if (func === 'decrease' && quant > 1) quant--;
+    if (func === 'increase' && quantity < max) quantity++;
+    if (func === 'decrease' && quantity > 1) quantity--;
 
     const newList = list.map(obj => {
-      if (obj.id === id) {
-        return { ...obj, quant: quant };
+      if (obj.sku === sku) {
+        return { ...obj, quantity: quantity };
       }
     
       return obj;
     });
 
     setList(newList);
-  }
+  };
 
   useEffect(() => {
     let sum = 0
     for (let i = 0; i < list.length; i++) {
-      sum += list[i].quant * list[i].price;
-    }
+      sum += list[i].quantity * list[i].price;
+    };
 
     setTotal(sum.toFixed(2));
   }, [list]);
 
-  const removeItem = (id) => {
-    setList(list.filter(item => item.id !== id));
-  }
+  const removeItem = (sku) => {
+    setList(list.filter(item => item.sku !== sku));
+  };
 
   return (
     <div className='cartContainer'>
@@ -117,9 +113,9 @@ const Cart = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={pay}
+                value={payment}
                 label="Forma de Pagamento"
-                onChange={e => setPay(e.target.value)}
+                onChange={e => setPayment(e.target.value)}
               >
                 <MenuItem value={'Cartão de Crédito'}>Cartão de Crédito</MenuItem>
                 <MenuItem value={'Dinheiro'}>Dinheiro</MenuItem>
@@ -128,7 +124,6 @@ const Cart = () => {
                 <MenuItem value={'Pix'}>Pix</MenuItem>
               </Select>
             </FormControl>
-
             
           </Grid>
           </>}
@@ -152,7 +147,7 @@ const Cart = () => {
                 </TableHead>
                 <TableBody>
                 {list.map((item) => (
-                    <StyledTableRow key={item._id}>
+                    <StyledTableRow key={item.id}>
 
                     <StyledTableCell align="left">
                       <Avatar alt="food"
@@ -167,14 +162,14 @@ const Cart = () => {
 
                     <StyledTableCell align="center">
                       <div className='quantCart'>
-                        <button onClick={() => counter(item.id, item.quantMax, 'decrease')}>-</button>
-                          {item.quant}
-                        <button onClick={() => counter(item.id, item.quantMax, 'increase')}>+</button>
+                        <button onClick={() => counter(item.sku, item.quantMax, 'decrease')}>-</button>
+                          {item.quantity}
+                        <button onClick={() => counter(item.sku, item.quantMax, 'increase')}>+</button>
                       </div>
                     </StyledTableCell>
                       
-                    <StyledTableCell align="center">{(item.quant*item.price).toFixed(2)}</StyledTableCell>
-                    <StyledTableCell align="right"><button onClick={() => removeItem(item.id)}>Excluir</button></StyledTableCell>
+                    <StyledTableCell align="center">{(item.quantity*item.price).toFixed(2)}</StyledTableCell>
+                    <StyledTableCell align="right"><button onClick={() => removeItem(item.sku)}>Excluir</button></StyledTableCell>
                     
                     </StyledTableRow>
                 ))}
@@ -201,9 +196,8 @@ const Cart = () => {
       </Box>
     </>}
     </div>
-
   );
-}
+};
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

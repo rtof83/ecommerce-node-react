@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../api';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -23,25 +23,26 @@ const ListCust = () => {
     const getData = async () => {
       setLoading(true);
 
-        await api.get('customer')
-          .then(({ data }) => {
-            setData(data);
-            setLoading(false);
-          })
-          .catch(e => console.log(e));
-      }
-    
-      useEffect(() => {    
-        getData();
-      }, [])
+      await api.get('customers')
+        .then(({ data }) => {
+          setData(data);
+        })
+        .catch(e => console.log(e));
 
-      const deleteCustomer = async (id, name) => {
-        if (window.confirm(`Excluir ${name}?`)) {
-          await api.delete(`customer/${id}`)
-            .then(getData())
-            .catch(e => console.log(e));
-        }
-      }
+      setLoading(false);
+    };
+
+    useEffect(() => {
+      getData();
+    }, []);
+
+    const deleteCustomer = async (id, name) => {
+      if (window.confirm(`Excluir ${name}?`)) {
+        await api.delete(`customers/${id}`)
+          .then(() => getData())
+          .catch(e => console.log(e));
+      };
+    };
 
   return (
       <div className="tableCustomer">
@@ -61,16 +62,18 @@ const ListCust = () => {
               </TableRow>
               </TableHead>
               <TableBody>
-              {data.map((item) => (
-                  <StyledTableRow key={item._id}>
-                  <StyledTableCell align="center" component="th" scope="row">
-                      {item.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{item.email}</StyledTableCell>
-                  <StyledTableCell align="right"><button onClick={() => navigate(`/customer/${item._id}`)}>Alterar</button></StyledTableCell>
-                  <StyledTableCell align="right"><button onClick={() => deleteCustomer(item._id, item.name)}>Excluir</button></StyledTableCell>
-                  </StyledTableRow>
-              ))}
+
+                {data.map((item) => (
+                    <StyledTableRow key={item._id}>
+                    <StyledTableCell align="center" component="th" scope="row">
+                        {item.name}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">{item.email}</StyledTableCell>
+                    <StyledTableCell align="right"><button onClick={() => navigate(`/customer/${item._id}`)}>Alterar</button></StyledTableCell>
+                    <StyledTableCell align="right"><button onClick={() => deleteCustomer(item._id, item.name)}>Excluir</button></StyledTableCell>
+                    </StyledTableRow>
+                ))}
+
               </TableBody>
           </Table>
         </TableContainer>

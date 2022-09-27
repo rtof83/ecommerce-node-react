@@ -7,17 +7,22 @@ const Carousel = () => {
             <ol className="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
 
             {/* <!-- Wrapper for slides --> */}
             <div className="carousel-inner" height role="listbox">
-            <div className="item active">
-                <img src="https://enafood.s3.us-east-2.amazonaws.com/carousel/01.jpg" alt="food" />    
-            </div>
+                <div className="item active">
+                    <img src="https://ecomm-teste2.s3.amazonaws.com/assets/01.jpg" alt="store" />    
+                </div>
 
-            <div className="item">
-                <img src="https://enafood.s3.us-east-2.amazonaws.com/carousel/02.jpg" alt="food" />   
-            </div>
+                <div className="item">
+                    <img src="https://ecomm-teste2.s3.amazonaws.com/assets/02.jpg" alt="store" />
+                </div>
+
+                <div className="item">
+                    <img src="https://ecomm-teste2.s3.amazonaws.com/assets/03.webp" alt="store" />   
+                </div>
             </div>
 
             {/* <!-- Left and right controls --> */}

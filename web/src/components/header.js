@@ -8,7 +8,7 @@ const Header = () => {
                 <div className="navbar-header">
 
                 <Link to={'/'}>
-                    <div className="navbar-brand">EnaFood</div>
+                    <div className="navbar-brand">Ecommerce</div>
                 </Link>
 
                 </div>
