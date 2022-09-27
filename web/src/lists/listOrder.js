@@ -79,7 +79,7 @@ const ListOrder = () => {
                       <div id={i._id}>{`${i.quantity} x ${i.product}`}</div>)}
                   </StyledTableCell>
                   
-                  <StyledTableCell align="center"><button onClick={() => deleteOrder(item.id)}>Excluir</button></StyledTableCell>
+                  <StyledTableCell align="center"><button onClick={() => deleteOrder(item._id)}>Excluir</button></StyledTableCell>
                   </StyledTableRow>
               ))}
               </TableBody>
