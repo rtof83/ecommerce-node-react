@@ -8,13 +8,13 @@ app.use(cors());
 
 // rotas da API
 const productRoutes = require('./routes/productRoutes');
-app.use('/product', productRoutes);
+app.use('/products', productRoutes);
 
 const orderRoutes = require('./routes/orderRoutes');
-app.use('/order', orderRoutes);
+app.use('/orders', orderRoutes);
 
 const customerRoutes = require('./routes/customerRoutes');
-app.use('/customer', customerRoutes);
+app.use('/customers', customerRoutes);
 
 app.get('/', (_, res) => {
   res.json({ message: 'Hello Express!' });

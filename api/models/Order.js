@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
 const Order = mongoose.model('Order', {
-  customer: String,
+  customer: mongoose.Types.ObjectId,
   list: [{
     product: String,
-    quant: Number,
-    price: Number
+    quantity: Number,
+    price: Number,
+    total: Number,
   }],
   total: Number,
-  pay: String,
+  payment: String,
   date: Date
 });
 
