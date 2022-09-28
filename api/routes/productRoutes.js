@@ -25,7 +25,7 @@ router.delete('/:sku', async (req, res) => {
   const product = await Product.findOne({ sku: req.params.sku });
 
   if (!product)
-    res.status(422).json({ message: 'Record not found!' });
+    return res.status(422).json({ message: 'Record not found!' });
 
   try {
     await Product.deleteOne({ sku: req.params.sku });

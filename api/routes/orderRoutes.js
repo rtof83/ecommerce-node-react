@@ -1,12 +1,27 @@
 const router = require('express').Router();
+const mongoose = require('mongoose');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
+const Customer = require('../models/Customer');
 
 router.post('/', async (req, res) => {
   try {
+    // check customer
+    if (mongoose.isValidObjectId(req.body.customer)) {
+      const customer = await Customer.findOne({ _id: req.body.customer });
+
+      if (!customer)
+        return res.status(419).json({ erro: `customer id '${req.body.customer}' not found`});
+    } else {
+      return res.status(419).json({ erro: `id '${req.body.customer}' is invalid`});
+    };
+
     // check for insufficient product
     for (let i = 0; i < req.body.list.length; i++) {
       const product = await Product.findOne({ sku: req.body.list[i].product });
+
+      if (!product)
+        return res.status(419).json({ erro: `sku '${req.body.list[i].product}' not found`});
 
       if (product.quantity < req.body.list[i].quantity)
         return res.status(419).json({ erro: `insufficient amount of product '${product.name}'` });
@@ -56,7 +71,7 @@ router.get('/', async (_, res) => {
             customer_name: { $arrayElemAt: ['$customer_name.name', 0] }
           }
         }
-      ]);
+      ]).sort({ date: -1 });
 
       res.status(200).json(order);
   } catch (error) {
@@ -65,10 +80,14 @@ router.get('/', async (_, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  const order = await Order.findOne({ _id: req.params.id });
+  if (mongoose.isValidObjectId(req.params.id)) {
+    const order = await Order.findOne({ _id: req.params.id });
 
-  if (!order)
-    return res.status(422).json({ message: 'Record not found!' });
+    if (!order)
+      return res.status(422).json({ message: 'Record not found!' });
+  } else {
+    return res.status(419).json({ message: `id '${req.params.id}' is invalid` });
+  };
 
   try {
     await Order.deleteOne({ _id: req.params.id });
@@ -81,12 +100,16 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const order = await Order.findOne({ _id: req.params.id });
+    if (mongoose.isValidObjectId(req.params.id)) {
+      const order = await Order.findOne({ _id: req.params.id });
 
-    if (!order)
-      return res.status(422).json({ message: 'Pedido não encontrado!' });
+      if (!order)
+        return res.status(422).json({ message: 'Record not found!' });
 
-    res.status(200).json(order);
+      res.status(200).json(order);
+    } else {
+      return res.status(419).json({ message: `id '${req.params.id}' is invalid` });
+    }
   } catch (error) {
     res.status(500).json({ erro: error });
   };
