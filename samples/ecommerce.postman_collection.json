@@ -56,34 +56,6 @@
 					"response": []
 				},
 				{
-					"name": "check customer Email",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BASE_URL}}:{{PORT}}/customers/checkEmail",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"port": "{{PORT}}",
-							"path": [
-								"customers",
-								"checkEmail"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "add customer",
 					"request": {
 						"method": "POST",
