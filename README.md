@@ -77,32 +77,37 @@
 &nbsp;
 
 ### Implementações API:
-- [Collections Postman](https://github.com/rtof83/bis2bis-universities/blob/main/samples/universities.postman_collection.json); ATENÇÃO! ALTERAR
+- [Collections Postman](https://github.com/rtof83/ecommerce-node-react/blob/main/samples/ecommerce.postman_collection.json);
 
 - Utilização de models mongoose para Clientes, Produtos e Pedidos;
 
 - POST
-    - {baseURL}/universities/create -> cria lista de universidades a partir da configuração inicial;
-    - {baseURL}/universities -> cadastra universidade;
+    - {baseURL}/customers/getUser -> retorna cliente por email e senha;
+    - {baseURL}/customers -> cadastra cliente;
+    - {baseURL}/products -> cadastra produto;
+    - {baseURL}/orders -> cadastra pedido;
 
 - GET
-    - {baseURL}/universities -> retorna todos os registros;
-    - {baseURL}/universities/{id} -> retorna registro por id;
-    - {baseURL}/universities?page={page} -> retorna registros por paginação;
-    - {baseURL}/universities?name={name} -> retorna registros por nome;
-    - {baseURL}/universities?country={country} -> retorna registros por país;
-    - {baseURL}/universities?country={country}&name={name} -> retorna registros por país e nome;
-    - {baseURL}/universities?page={page}&country={country}&name={name} -> retorna registros por paginação, país e nome;
-    - {baseURL}/universities/countries -> lista todos os países das universidades cadastradas na base de dados;
+    - {baseURL}/customers -> retorna todos os clientes;
+    - {baseURL}/customers/{id} -> retorna cliente por id;
 
-- PUT
-    - {baseURL}/universities/{id} -> atualiza registro;
+    - {baseURL}/products -> retorna todos os produtos;
+    - {baseURL}/products/{id} -> retorna produto por id;
+
+    - {baseURL}/orders -> retorna todos os pedidos;
+    - {baseURL}/orders/{id} -> retorna pedido por id;
+
+- PATCH
+    - {baseURL}/customers/{id} -> atualiza cliente;
+    - {baseURL}/products/{id} -> atualiza produto;
 
 - DELETE
-    - {baseURL}/universities/{id} -> exclui registro;
+    - {baseURL}/customers/{id} -> exclui cliente;
+    - {baseURL}/products/{id} -> exclui produto;
+    - {baseURL}/orders/{id} -> atualiza pedido;
 
 - Inserção de pedidos:
-    - total do pedido e data e hora atual inseridos através da API;
+    - o total do pedido e a data e hora atual são inseridos através da API;
     - a quantidade de produtos é atualizada de forma automatizada (é verificado se a quantidade solicitada é igual ou menor que o estoque);
 
 &nbsp;
@@ -128,7 +133,9 @@
     "sku": "888",
     "name": "Product Test",
     "price": 99.9,
-    "quantity": 30
+    "quantity": 30,
+    "desc": "description",
+    "image": "https://image.com/image.jpg"
 }
 ```
 
@@ -136,17 +143,17 @@
 
 ```javascript
 {
-    "customer": 3,
+    "customer": "ObjectId",
     "address": "Payment Street",
     "payment": "pix",
     "items": [
         {
-            "quantity": 2,
             "sku": "888"
+            "quantity": 2,
         },
         {
-            "quantity": 2,
             "sku": "999ab"
+            "quantity": 2,
         }
     ]
 }
@@ -169,4 +176,3 @@
 - `Utilizar localstorage (pedidos) concomitante ao ContextAPI`;
 - `Lista pedidos detalhada`;
 - `Validação dos campos`;
-- `Refatoração`;
