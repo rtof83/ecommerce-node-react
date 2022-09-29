@@ -147,6 +147,82 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "customers pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}:{{PORT}}/customers?page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}:{{PORT}}/customers?name=01",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"customers"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers pagination and name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}:{{PORT}}/customers?page=1&name=ad",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "name",
+									"value": "ad"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -231,6 +307,34 @@
 							"path": [
 								"orders",
 								"63343c17c8ea865b0bd2ef46"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders pagination and name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}:{{PORT}}/orders?page=1&customer=ad",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "customer",
+									"value": "ad"
+								}
 							]
 						}
 					},
@@ -347,6 +451,82 @@
 							"path": [
 								"products",
 								"999ab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}:{{PORT}}/products?page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}:{{PORT}}/products?name=01",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products pagination and name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}:{{PORT}}/products?page=1&name=01",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "name",
+									"value": "01"
+								}
 							]
 						}
 					},
