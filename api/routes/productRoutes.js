@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
     if (req.query.name || req.query.page) {
       if (req.query.name) query.name = { $regex: req.query.name, "$options": "i" };
 
-      const perPage = 2;
+      const perPage = 10;
       const total = await Product.count(query);
       const pages = Math.ceil(total / perPage);
       const pageNumber = !req.query.page ? 1 : req.query.page;
