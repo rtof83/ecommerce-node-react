@@ -90,12 +90,20 @@
 - GET
     - {baseURL}/customers -> retorna todos os clientes;
     - {baseURL}/customers/{id} -> retorna cliente por id;
+    - {baseURL}/customers?page={page} -> retorna clientes por página;
+    - {baseURL}/customers?name={name} -> retorna clientes por nome;
+    - {baseURL}/customers?page={page}&name={name} -> retorna clientes por nome e página;
 
     - {baseURL}/products -> retorna todos os produtos;
     - {baseURL}/products/{id} -> retorna produto por id;
+    - {baseURL}/products?page={page} -> retorna produtos por página;
+    - {baseURL}/products?name={name} -> retorna produtos por nome;
+    - {baseURL}/products?page={page}&name={name} -> retorna produtos por nome e página;
 
     - {baseURL}/orders -> retorna todos os pedidos;
     - {baseURL}/orders/{id} -> retorna pedido por id;
+    - {baseURL}/orders?page={page} -> retorna pedidos por página;
+    - {baseURL}/orders?page={page}&customer={customer} -> retorna pedidos por cliente e página;
 
 - PATCH
     - {baseURL}/customers/{id} -> atualiza cliente;
@@ -105,6 +113,9 @@
     - {baseURL}/customers/{id} -> exclui cliente;
     - {baseURL}/products/{id} -> exclui produto;
     - {baseURL}/orders/{id} -> atualiza pedido;
+
+- Buscas:
+    - retorna até 10 registros por página;
 
 - Inserção de pedidos:
     - o total do pedido e a data e hora atual são inseridos através da API;
@@ -171,8 +182,5 @@
 - `Login`;
 
 ### Próximos passos:
-- `Filtrar listagens`;
-- `Localizar registros por campo`;
 - `Utilizar localstorage (pedidos) concomitante ao ContextAPI`;
 - `Lista pedidos detalhada`;
-- `Validação dos campos`;
