@@ -1,137 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
-import { Link, useNavigate } from 'react-router-dom';
-
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
-import CircularProgress from '@mui/material/CircularProgress';
-import Foods from '../assets/foods.png';
+import { useNavigate } from 'react-router-dom';
+import tableList from '../components/tableList';
 
 const ListProd = () => {
-    const navigate = useNavigate();
-    const [ data, setData ] = useState([]);
-    const [ loading, setLoading ] = useState(false);
+  const navigate = useNavigate();
 
-    const getData = async () => {
-      setLoading(true);
+  const [ data, setData ] = useState([]);
+  const [ loading, setLoading ] = useState(false);
+  const [ search, setSearch ] = useState('');
+  const [ searchById, setSearchById ] = useState('');
+  const [ searchByName, setSearchByName ] = useState('');
+  const [ page, setPage ] = useState(1);
 
-      await api.get('products')
-        .then(({ data }) => {
-          setData(data);
-        })
-        .catch(e => console.log(e));
+  const getData = async () => {
+    setLoading(true);
 
-      setLoading(false);
-    };
-    
-    useEffect(() => {    
-      getData();
-    }, []);
+    const query = !searchById ? 'products?page=' + page + (searchByName ? '&name=' + searchByName : '') : 'products/' + searchById;
+    await api.get(query)
+      .then(({ data }) => {
+        data.length === undefined ? setData([data]) : setData(data);
+      })
+      .catch(e => {
+        console.log(e);
+        if (e.response.status === 400 || e.response.status === 422) setData([]);
+      });
 
-    const deleteProduct = async (sku, name) => {
-      if (window.confirm(`Excluir ${name}?`)) {
-        await api.delete(`products/${sku}`)
-          .then(() => getData())
-          .catch(e => console.log(e));
-      };
-    };
+    setLoading(false);
+  };
+  
+  useEffect(() => {    
+    getData();
+  }, [page, search]);
 
-      // const getValue = (value) => {
-      //   value >= 0 ? (value).toLocaleString('pt-BR') : 
-      //           <Skeleton variant="text" width={182} height={60} />
-      // }
+  const getDefault = () => {
+    setSearchByName('');
+    setSearchById('');
+    setPage(1);
+    setSearch('');
+  };
 
   return (
-      <div className="tableProduct">
-        
-        {/* { data.length === 0 ? <h3>Nenhum registro encontrado</h3> : <> */}
+    <>
+      { tableList( 'Produtos',
 
-        { loading ? <h3><CircularProgress /></h3> : <>
+                   [ { align: 'left', fieldName: '', field: 'image' },
+                     { align: 'center', fieldName: 'SKU', field: 'sku' },
+                     { align: 'left', fieldName: 'Nome', field: 'name' },
+                     { align: 'center', fieldName: 'Quantidade', field: 'quantity' },
+                     { align: 'center', fieldName: 'Preço', field: 'price' } ],
 
-        <h3>Lista de Produtos</h3>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-              <TableRow>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  <StyledTableCell align="center">SKU</StyledTableCell>
-                  <StyledTableCell align="left">Nome</StyledTableCell>
-                  <StyledTableCell align="center">Quantidade</StyledTableCell>
-                  <StyledTableCell align="center">Preço</StyledTableCell>
-                  <StyledTableCell align="right" />
-                  <StyledTableCell align="right" />
-              </TableRow>
-              </TableHead>
-              <TableBody>
-              {data.map((item) => (
-                  <StyledTableRow key={item.sku}>
+                   loading,
 
-                  <StyledTableCell align="left">
-                    <Avatar alt="food"
-                            src={ item.image ? item.image : Foods }
-                            sx={{ width: 30, height: 30 }}
-                          />
-                  </StyledTableCell>
+                   { searchById,
+                     searchByName,
+                     setSearch,
+                     setSearchById,
+                     setSearchByName,
+                     getDefault },
 
-                  <StyledTableCell align="center">{item.sku}</StyledTableCell>
-                  <StyledTableCell align="left" component="th" scope="row">
-                      {item.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{item.quantity}</StyledTableCell>
-                  <StyledTableCell align="center">{item.price.toFixed(2)}</StyledTableCell>
-                  <StyledTableCell align="right"><button onClick={() => navigate(`/product/${item.sku}`)}>Alterar</button></StyledTableCell>
-                  <StyledTableCell align="right"><button onClick={() => deleteProduct(item.sku, item.name)}>Excluir</button></StyledTableCell>
-                  </StyledTableRow>
-              ))}
-              </TableBody>
-          </Table>
-        </TableContainer>
-
-        <Grid gap={3}
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              className="gridButton">
-
-          <Link to={'/'}>
-            <Button variant="contained">Voltar</Button>
-          </Link>
-        </Grid>
-
-        </> }
-    </div>
+                   api,
+                   data, getData,
+                   page, setPage,
+                   navigate, 'product' )
+      }
+    </>
   );
-}
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
+};
 
 export default ListProd;
