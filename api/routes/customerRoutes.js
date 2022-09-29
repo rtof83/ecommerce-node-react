@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Customer = require('../models/Customer');
+const mongoose = require('mongoose');
 
 router.post('/', async (req, res) => {
   const { email } = await Customer.findOne({ email: req.body.email });
@@ -15,11 +16,36 @@ router.post('/', async (req, res) => {
   };
 });
   
-router.get('/', async (_, res) => {
+router.get('/', async (req, res) => {
   try {
-    const customer = await Customer.find();
+    let customers;
+    let query = {};
 
-    res.status(200).json(customer);
+    if (req.query.name || req.query.page) {
+      if (req.query.name) query.name = { $regex: req.query.name, "$options": "i" };
+
+      const perPage = 2;
+      const total = await Customer.count(query);
+      const pages = Math.ceil(total / perPage);
+      const pageNumber = !req.query.page ? 1 : req.query.page;
+      const startFrom = (pageNumber - 1) * perPage;
+
+      if (pageNumber > 0 && pageNumber <= pages) {
+        customers = await Customer.find(query)
+          .sort('name')
+          .skip(startFrom)
+          .limit(perPage)
+          .exec();
+
+        // adding pagination to array
+        customers.push({ page: parseInt(pageNumber), from: pages });
+      }
+    } else {
+      // GET ALL
+      customers = await Customer.find();
+    };
+
+    res.status(200).json(customers);
   } catch (error) {
     res.status(500).json({ erro: error });
   };
@@ -70,15 +96,19 @@ router.patch('/:id', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const customer = await Customer.findOne({ _id: req.params.id });
+    if (mongoose.isValidObjectId(req.params.id)) {
+      const customer = await Customer.findOne({ _id: req.params.id });
 
-    if (!customer)
-      return res.status(422).json({ message: 'Record not found!' });
+      if (!customer)
+        return res.status(422).json({ message: 'Record not found!' });
 
-    res.status(200).json(customer);
+      res.status(200).json(customer);
+    } else {
+      res.status(400).json({ message: 'invalid id' })
+    }
   } catch (error) {
     res.status(500).json({ erro: error });
-  };
+  }
 });
 
 module.exports = router;

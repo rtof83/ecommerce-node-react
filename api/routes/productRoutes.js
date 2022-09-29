@@ -11,11 +11,36 @@ router.post('/', async (req, res) => {
   };
 });
   
-router.get('/', async (_, res) => {
+router.get('/', async (req, res) => {
   try {
-    const product = await Product.find();
+    let products;
+    let query = {};
 
-    res.status(200).json(product);
+    if (req.query.name || req.query.page) {
+      if (req.query.name) query.name = { $regex: req.query.name, "$options": "i" };
+
+      const perPage = 2;
+      const total = await Product.count(query);
+      const pages = Math.ceil(total / perPage);
+      const pageNumber = !req.query.page ? 1 : req.query.page;
+      const startFrom = (pageNumber - 1) * perPage;
+
+      if (pageNumber > 0 && pageNumber <= pages) {
+        products = await Product.find(query)
+          .sort('name')
+          .skip(startFrom)
+          .limit(perPage)
+          .exec();
+
+        // adding pagination to array
+        products.push({ page: parseInt(pageNumber), from: pages });
+      }
+    } else {
+      // GET ALL
+      products = await Product.find();
+    };
+
+    res.status(200).json(products);
   } catch (error) {
       res.status(500).json({ erro: error });
   };
