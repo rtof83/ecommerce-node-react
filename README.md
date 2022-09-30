@@ -172,15 +172,18 @@
 
 &nbsp;
 
-### Implementações FRONT:
-- `Cadastro, alteração e exclusão de Cliente`;
-- `Cadastro, alteração e exclusão de Produto`;
-- `Lista Clientes`;
-- `Lista Produtos`;
-- `Lista Pedidos`;
-- `Carrinho`;
-- `Login`;
+### Implementações:
+- Cadastro, alteração e exclusão de Cliente;
+- Cadastro, alteração e exclusão de Produto;
+- Lista Clientes;
+- Lista Produtos;
+- Lista Pedidos;
+- Carrinho;
+- Login;
+
+&nbsp;
 
 ### Próximos passos:
-- `Utilizar localstorage (pedidos) concomitante ao ContextAPI`;
-- `Lista pedidos detalhada`;
+- Utilizar localstorage (pedidos) concomitante ao ContextAPI;
+- Lista de pedidos detalhada;
+- Componentização das rotas;
