@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import { ListContext } from '../contexts/Contexts';
 import { useNavigate } from 'react-router-dom';
+
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Foods from '../assets/foods.png';
-import ListContext from '../contexts/ListContext';
 
 const CardFood = ({ sku, image, name, desc, price, quantity }) => {
   const [ list, setList ] = useContext(ListContext);

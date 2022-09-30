@@ -1,6 +1,4 @@
-// import React from "react";
-
-const countPage = (action, page, data, setPage) => {
+const CountPage = (action, page, data, setPage) => {
     if (action === 'increase' && page < data.slice(-1)[0].from) {
         setPage(page + 1);
     } else if (action === 'decrease' && page > 1) {
@@ -8,4 +6,4 @@ const countPage = (action, page, data, setPage) => {
     };
 };
 
-export default countPage;
+export default CountPage;

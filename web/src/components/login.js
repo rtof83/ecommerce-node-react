@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
-import UserContext from '../contexts/UserContext';
+import { UserContext } from '../contexts/Contexts';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';

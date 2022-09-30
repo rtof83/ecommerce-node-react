@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import checkCPF from '../components/cpf';
+import CheckCPF from '../components/CheckCPF';
 import InputMask from 'react-input-mask';
 
 import api from '../api';
@@ -31,7 +31,7 @@ const Customer = () => {
 
     const insertCustomer = async () => {
       const cpf = values.cpf.replace(/[^\w\s]/gi, '');
-      if (!checkCPF(cpf)) {
+      if (!CheckCPF(cpf)) {
         return alert('CPF inválido!');
       }
 

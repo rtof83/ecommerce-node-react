@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ListContext from '../contexts/ListContext';
-import UserContext from '../contexts/UserContext';
+import { ListContext, UserContext } from '../contexts/Contexts';
 import { useNavigate } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';

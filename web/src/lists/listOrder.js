@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { SearchContext } from '../contexts/Contexts';
 import api from '../api';
-import tableList from '../components/tableList';
+import TableList from '../components/TableList';
 
 const ListOrder = () => {
+  const [ , setSearchContext ] = useContext(SearchContext); 
   const [ data, setData ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ search, setSearch ] = useState('');
@@ -25,6 +27,10 @@ const ListOrder = () => {
 
       setLoading(false);
   };
+
+  useEffect(() => {
+    setSearchContext({ id: 'Pedido', name: 'Nome do Cliente' });
+  }, []);
   
   useEffect(() => {    
     getData();
@@ -39,7 +45,7 @@ const ListOrder = () => {
 
   return (
     <>
-      { tableList( 'Pedidos',
+      { TableList( 'Pedidos',
 
                    [ { align: 'center', fieldName: 'Pedido', field: '_id' },
                      { align: 'center', fieldName: 'Total', field: 'total' },

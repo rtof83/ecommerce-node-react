@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import api from '../api';
-import Carousel from "../components/carousel";
-import CardFood from "../components/card";
-import UserContext from '../contexts/UserContext';
+import Carousel from "../components/Carousel";
+import CardFood from "../components/Card";
+import { UserContext } from '../contexts/Contexts';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';

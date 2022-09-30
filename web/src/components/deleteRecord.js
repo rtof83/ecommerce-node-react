@@ -1,4 +1,4 @@
-const deleteRecord = async (id, name, api, getData) => {
+const DeleteRecord = async (id, name, api, getData) => {
     if (window.confirm(`Excluir ${name}?`)) {
         await api.delete(`customers/${id}`)
         .then(() => getData())
@@ -6,4 +6,4 @@ const deleteRecord = async (id, name, api, getData) => {
     };
 };
 
-export default deleteRecord;
+export default DeleteRecord;

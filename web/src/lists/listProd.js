@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import api from '../api';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import tableList from '../components/tableList';
+import { SearchContext } from '../contexts/Contexts';
+import TableList from '../components/TableList';
+import api from '../api';
 
 const ListProd = () => {
   const navigate = useNavigate();
+  const [ , setSearchContext ] = useContext(SearchContext);
 
   const [ data, setData ] = useState([]);
   const [ loading, setLoading ] = useState(false);
@@ -28,6 +30,10 @@ const ListProd = () => {
 
     setLoading(false);
   };
+
+  useEffect(() => {
+    setSearchContext({ id: 'SKU', name: 'Nome do Produto' });
+  }, []);
   
   useEffect(() => {    
     getData();
@@ -42,7 +48,7 @@ const ListProd = () => {
 
   return (
     <>
-      { tableList( 'Produtos',
+      { TableList( 'Produtos',
 
                    [ { align: 'left', fieldName: '', field: 'image' },
                      { align: 'center', fieldName: 'SKU', field: 'sku' },

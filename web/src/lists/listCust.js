@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SearchContext } from '../contexts/Contexts';
 
 import api from '../api';
-import tableList from '../components/tableList';
+import TableList from '../components/TableList';
 
 const ListCust = () => {
   const navigate = useNavigate();
+  const [ , setSearchContext ] = useContext(SearchContext);
   
   const [ data, setData ] = useState([]);
   const [ loading, setLoading ] = useState(false);
@@ -31,6 +33,10 @@ const ListCust = () => {
   };
 
   useEffect(() => {
+    setSearchContext({ id: 'ID', name: 'Nome do Cliente' });
+  }, []);
+
+  useEffect(() => {
     getData();
   }, [page, search]);
 
@@ -43,7 +49,7 @@ const ListCust = () => {
 
   return (
     <>
-      { tableList( 'Clientes',
+      { TableList( 'Clientes',
 
                    [ { align: 'center', fieldName: 'ID', field: '_id' },
                      { align: 'left', fieldName: 'Nome', field: 'name' },

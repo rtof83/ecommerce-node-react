@@ -1,4 +1,4 @@
-const checkCPF = (CPF) => {
+const CheckCPF = (CPF) => {
     let sum;
     let rest;
 
@@ -20,4 +20,4 @@ const checkCPF = (CPF) => {
     return true;
 }
 
-export default checkCPF;
+export default CheckCPF;

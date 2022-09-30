@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import searchPanel from '../components/searchPanel';
-import deleteRecord from './deleteRecord';
-import countPage from './countPage';
+import searchPanel from './SearchPanel';
+import deleteRecord from './DeleteRecord';
+import CountPage from './CountPage';
 
-import { StyledTableCell, StyledTableRow } from './styledTable';
+import { StyledTableCell, StyledTableRow } from './StyledTable';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import TableContainer from '@mui/material/TableContainer';
@@ -18,7 +18,7 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Foods from '../assets/foods.png';
 
-const tableList = ( listName,
+const TableList = ( listName,
                     tableCell,
                     loading,
                     srPanFn,
@@ -98,8 +98,8 @@ const tableList = ( listName,
                   </StyledTableRow>
                 :
                 <StyledTableCell colSpan={7} align="center">
-                  <Button sx={{ mr: 1.5 }} variant="outlined" onClick={() => countPage('decrease', page, data, setPage)}>{'<'}</Button>Página {item.page} de {item.from}
-                  <Button sx={{ ml: 1.5 }} variant="outlined" onClick={() => countPage('increase', page, data, setPage)}>{'>'}</Button>
+                  <Button sx={{ mr: 1.5 }} variant="outlined" onClick={() => CountPage('decrease', page, data, setPage)}>{'<'}</Button>Página {item.page} de {item.from}
+                  <Button sx={{ ml: 1.5 }} variant="outlined" onClick={() => CountPage('increase', page, data, setPage)}>{'>'}</Button>
                 </StyledTableCell>
               ))}
 
@@ -124,4 +124,4 @@ const tableList = ( listName,
   );
 };
 
-export default tableList;
+export default TableList;
