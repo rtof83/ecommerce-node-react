@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 const Login = () => {
-
     const [ values, setValues ] = useState({ email: '', password: '' });
     const [ , setUser ] = useContext(UserContext);
 
@@ -42,8 +41,8 @@ const Login = () => {
               alignItems="stretch"
               className="gridCustomer">
 
-            <TextField id="outlined-basic" label="Email" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} />
-            <TextField id="outlined-basic" label="Senha" variant="outlined" type="password" value={values.password} onChange={e => setValues({...values, password: e.target.value})} />
+            <TextField id="txtEmail" label="Email" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} />
+            <TextField id="txtPassword" label="Senha" variant="outlined" type="password" value={values.password} onChange={e => setValues({...values, password: e.target.value})} onKeyDown={e => e.key === 'Enter' && getUser()} />
         
         </Grid>
 
