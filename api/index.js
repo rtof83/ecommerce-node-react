@@ -36,9 +36,11 @@ const getCustomerById = require('./routes/customer/getCustomerById');
 const getCustomers = require('./routes/customer/getCustomers');
 const patchCustomer = require('./routes/customer/patchCustomer');
 const postCustomer = require('./routes/customer/postCustomer');
+const getUser = require('./routes/customer/getUser');
 
 app.use('/customers', [ postCustomer,
-                       getCustomers,
-                       deleteCustomer,
-                       patchCustomer,
-                       getCustomerById ]);
+                        getCustomers,
+                        deleteCustomer,
+                        patchCustomer,
+                        getCustomerById,
+                        getUser ]);
