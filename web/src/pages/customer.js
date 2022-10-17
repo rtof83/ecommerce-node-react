@@ -121,7 +121,7 @@ const Customer = () => {
             { id && <TextField id="txtId" label="Id" variant="outlined" value={id} disabled /> }
             <TextField required id="txtName" label="Nome" variant="outlined" value={values.name} onChange={e => setValues({...values, name: e.target.value})} />
             <TextField id="txtAddress" label="Endereço" variant="outlined" value={values.address} onChange={e => setValues({...values, address: e.target.value})} />
-            <TextField required id="txtEmail" label="E-mail" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} />            
+            <TextField required id="txtEmail" label="E-mail" variant="outlined" value={values.email} onChange={e => setValues({...values, email: e.target.value})} disabled={id} />            
 
             <InputMask value={values.cpf} onChange={e => setValues({...values, cpf: e.target.value})} mask="999.999.999-99" maskChar=" ">
               {() => <TextField required id="txtCPF" label="CPF" variant="outlined" />}
