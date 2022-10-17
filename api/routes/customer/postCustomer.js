@@ -2,10 +2,6 @@ const postCustomer = require('express').Router();
 const Customer = require('../../models/Customer');
 
 postCustomer.post('/', async (req, res) => {
-  const { email } = await Customer.findOne({ email: req.body.email });
-  if (email)
-   return res.status(419).json({ message: `email '${email}' already exist in database` });
-
   try {
     await Customer.create(req.body);
 

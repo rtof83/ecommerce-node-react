@@ -38,9 +38,13 @@ const patchCustomer = require('./routes/customer/patchCustomer');
 const postCustomer = require('./routes/customer/postCustomer');
 const getUser = require('./routes/customer/getUser');
 
-app.use('/customers', [ postCustomer,
-                        getCustomers,
+// middlewares
+const checkEmail = require('./middlewares/checkEmail');
+
+app.use('/customers', [ getCustomers,
                         deleteCustomer,
                         patchCustomer,
                         getCustomerById,
                         getUser ]);
+
+app.use('/customers', checkEmail, postCustomer);
