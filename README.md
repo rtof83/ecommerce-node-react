@@ -38,12 +38,10 @@
 - Pedido (Order):
 ```javascript
     customer: ObjectId,
-    list: [{
-        product: String,
-        quantity: Number,
-        price: Number,
-        total: Number,
-    }],
+    list: [{ product: String,
+             quantity: Number,
+             price: Number,
+             total: Number }],
     total: Number,
     payment: String,
     date: Date
@@ -79,40 +77,47 @@
 ### Implementações API:
 - [Collections Postman](https://github.com/rtof83/ecommerce-node-react/blob/main/samples/ecommerce.postman_collection.json);
 
-- Utilização de models mongoose para Clientes, Produtos e Pedidos;
+- Utilização de [models](https://github.com/rtof83/ecommerce-node-react/tree/main/api/models) mongoose para Clientes, Produtos e Pedidos;
 
-- POST
-    - {baseURL}/customers/getUser -> retorna cliente por email e senha;
-    - {baseURL}/customers -> cadastra cliente;
-    - {baseURL}/products -> cadastra produto;
-    - {baseURL}/orders -> cadastra pedido;
+&nbsp;
 
-- GET
-    - {baseURL}/customers -> retorna todos os clientes;
-    - {baseURL}/customers/{id} -> retorna cliente por id;
-    - {baseURL}/customers?page={page} -> retorna clientes por página;
-    - {baseURL}/customers?name={name} -> retorna clientes por nome;
-    - {baseURL}/customers?page={page}&name={name} -> retorna clientes por nome e página;
+- Rotas de acesso:
 
-    - {baseURL}/products -> retorna todos os produtos;
-    - {baseURL}/products/{id} -> retorna produto por id;
-    - {baseURL}/products?page={page} -> retorna produtos por página;
-    - {baseURL}/products?name={name} -> retorna produtos por nome;
-    - {baseURL}/products?page={page}&name={name} -> retorna produtos por nome e página;
+    - POST
+        - {baseURL}/customers/getUser -> retorna cliente por email e senha;
+        - {baseURL}/customers -> cadastra cliente;
+        - {baseURL}/products -> cadastra produto;
+        - {baseURL}/orders -> cadastra pedido;
 
-    - {baseURL}/orders -> retorna todos os pedidos;
-    - {baseURL}/orders/{id} -> retorna pedido por id;
-    - {baseURL}/orders?page={page} -> retorna pedidos por página;
-    - {baseURL}/orders?page={page}&customer={customer} -> retorna pedidos por cliente e página;
+    - GET
+        - {baseURL}/customers -> retorna todos os clientes;
+        - {baseURL}/customers/{id} -> retorna cliente por id;
+        - {baseURL}/customers?page={page} -> retorna clientes por página;
+        - {baseURL}/customers?name={name} -> retorna clientes por nome;
+        - {baseURL}/customers?page={page}&name={name} -> retorna clientes por nome e página;
 
-- PATCH
-    - {baseURL}/customers/{id} -> atualiza cliente;
-    - {baseURL}/products/{id} -> atualiza produto;
+        - {baseURL}/products -> retorna todos os produtos;
+        - {baseURL}/products/{id} -> retorna produto por id;
+        - {baseURL}/products?page={page} -> retorna produtos por página;
+        - {baseURL}/products?name={name} -> retorna produtos por nome;
+        - {baseURL}/products?page={page}&name={name} -> retorna produtos por nome e página;
 
-- DELETE
-    - {baseURL}/customers/{id} -> exclui cliente;
-    - {baseURL}/products/{id} -> exclui produto;
-    - {baseURL}/orders/{id} -> atualiza pedido;
+        - {baseURL}/orders -> retorna todos os pedidos;
+        - {baseURL}/orders/{id} -> retorna pedido por id;
+        - {baseURL}/orders?page={page} -> retorna pedidos por página;
+        - {baseURL}/orders?page={page}&customer={customer} -> retorna pedidos por cliente e página;
+
+    - PATCH
+        - {baseURL}/customers/{id} -> atualiza cliente;
+        - {baseURL}/products/{id} -> atualiza produto;
+
+    - DELETE
+        - {baseURL}/customers/{id} -> exclui cliente;
+        - {baseURL}/products/{id} -> exclui produto;
+        - {baseURL}/orders/{id} -> atualiza pedido;
+
+- Middlewares:
+    - [checkEmail](https://github.com/rtof83/ecommerce-node-react/blob/main/api/middlewares/checkEmail.js) -> verifica se há um email existente ao tentar cadastrar novo Cliente;
 
 - Buscas:
     - retorna até 10 registros por página;
@@ -123,21 +128,21 @@
 
 &nbsp;
 
-#### exemplo de inserção de Clientes
+#### exemplo de inserção e alteração de Cliente
 
 ```javascript
 {
     "name": "Test Client",
     "cpf": "99999999999",
     "email": "client@test.com",
-    "address": "Test Street, 95",
+    "address": "Client Address, 95",
     "phone": "(99) 99999-9999",
     "birth": "1999-01-01",
-    "password": "123"
+    "password": "pass"
 }
 ```
 
-#### exemplo de inserção de Produtos
+#### exemplo de inserção e alteração de Produto
 
 ```javascript
 {
@@ -150,31 +155,29 @@
 }
 ```
 
-#### exemplo de inserção de Pedidos
+#### exemplo de inserção de Pedido
 
 ```javascript
 {
     "customer": "ObjectId",
     "address": "Payment Street",
     "payment": "pix",
-    "items": [
-        {
-            "sku": "888"
-            "quantity": 2,
-        },
-        {
-            "sku": "999ab"
-            "quantity": 2,
-        }
-    ]
+    "items": [{
+                "sku": "888"
+                "quantity": 2,
+              },
+              {
+                 "sku": "999ab"
+                 "quantity": 2,
+              }]
 }
 ```
 
 &nbsp;
 
 ### Implementações:
-- Cadastro, alteração e exclusão de Cliente;
-- Cadastro, alteração e exclusão de Produto;
+- Cadastro, alteração e exclusão de Clientes;
+- Cadastro, alteração e exclusão de Produtos;
 - Lista Clientes;
 - Lista Produtos;
 - Lista Pedidos;
