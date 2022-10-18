@@ -74,7 +74,7 @@ const TableList = ( listName,
                       <StyledTableCell align={head.align}>{head.fieldName}</StyledTableCell>)}
 
                   {/* render update button path exist */}
-                  { path && <StyledTableCell align="right" /> }
+                  { path !== 'order' && <StyledTableCell align="right" /> }
 
                   <StyledTableCell align="right" />
               </TableRow>
@@ -92,7 +92,7 @@ const TableList = ( listName,
                     }
 
                     {/* render update button path exist */}
-                    { path && <StyledTableCell align="right"><button onClick={() => navigate(`/${path}/${path === 'product' ? item.sku : item._id}`)}>Alterar</button></StyledTableCell> }
+                    { path !== 'order' && <StyledTableCell align="right"><button onClick={() => navigate(`/${path}/${path === 'product' ? item.sku : item._id}`)}>Alterar</button></StyledTableCell> }
                     
                     <StyledTableCell align="right"><button onClick={() => deleteRecord(path === 'product' ? item.sku : item._id, path === 'order' ? item.customer_name : item.name, api, getData, path)}>Excluir</button></StyledTableCell>
                   </StyledTableRow>

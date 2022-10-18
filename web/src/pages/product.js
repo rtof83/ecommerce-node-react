@@ -49,7 +49,10 @@ const Product = () => {
         const query = sku ? api.patch(`products/${sku}`, product) : api.post('products', product);
         await query
           .then(() => navigate('/listProd'))
-          .catch(e => console.log(e));
+          .catch(e => {
+            if (e.response.status === 419)
+              alert('SKU existente na base de dados!');
+          });
       };
     };
 
