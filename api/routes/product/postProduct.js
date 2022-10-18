@@ -2,9 +2,10 @@ const postProduct = require('express').Router();
 const Product = require('../../models/Product');
 
 postProduct.post('/', async (req, res) => {
-  const { sku } = await Product.findOne({ sku: req.body.sku });
-  if (sku)
-   return res.status(419).json({ message: `sku '${sku}' already exist in database` });
+  const product = await Product.findOne({ sku: req.body.sku });
+
+  if (product)
+   return res.status(419).json({ message: `sku '${product.sku}' already exist in database` });
 
   try {
     await Product.create(req.body);
