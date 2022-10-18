@@ -64,7 +64,8 @@ const ListOrder = () => {
 
                    api,
                    data, getData,
-                   page, setPage )
+                   page, setPage,
+                   null, 'order' )
       }
     </>
   );
