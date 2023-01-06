@@ -70,7 +70,7 @@
 ### a aplicação pode ser acessada através do link:
 - http://ecomm-mongodb-node.s3-website-us-east-1.amazonaws.com
 - FRONT armazenado em instância Amazon S3;
-- API instanciado em EC2 AWS (http://34.235.154.60:3003);
+- API instanciado em EC2 AWS (http://34.235.89.154:3003);
 
 &nbsp;
 
